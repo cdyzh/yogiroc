@@ -1,0 +1,11 @@
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+vignettes/*.pdf
+vignettes/*.tex
+vignettes/*.log
+vignettes/*.synctex.gz
+doc
+Meta
+inst/doc
