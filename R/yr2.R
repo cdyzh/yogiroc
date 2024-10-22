@@ -471,7 +471,7 @@ draw.prc.CI <- function(yr2,col=seq_along(yr2),lty=1,
     )
   }
   if (!is.na(legend)) {
-    legend(legend,sprintf("%s (AUPRC=%.02f;R90P=%.02f)",
+    legend(legend,sprintf("%s (AUBPRC=%.02f;R90BP=%.02f)",
         names(yr2),auprc(yr2,monotonized,balanced),recall.at.prec(yr2,0.9,monotonized,balanced)
     ),col=col,lty=lty)
   }
