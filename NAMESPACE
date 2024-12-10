@@ -12,3 +12,5 @@ export(new.yogiroc)
 export(prcCI)
 export(recall.at.prec)
 export(yr2)
+export(calculate_thresh_range)
+

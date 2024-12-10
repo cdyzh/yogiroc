@@ -791,7 +791,7 @@ recall.at.prec <- function(yr2,x=0.9,monotonized=TRUE,balanced=FALSE) {
 calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE) {
   stopifnot(inherits(yr2, "yr2"))
   
-  # Initialize a list to store ranges
+  # list to store ranges
   thresh_ranges <- vector("list", length(yr2))
   names(thresh_ranges) <- names(yr2)
   
@@ -799,6 +799,7 @@ calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE)
     data <- yr2[[i]]
     ppv <- configure.prec(data, monotonized=monotonized, balanced=balanced)
     
+    # which thresholds meet cutoff
     hits <- which(ppv > precision_cutoff)
     
     if (length(hits) > 0) {
