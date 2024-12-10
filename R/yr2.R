@@ -799,7 +799,7 @@ calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE)
     ppv <- configure.prec(data, monotonized=monotonized, balanced=balanced)
     
     # which thresholds meet cutoff
-    hits <- which(ppv > precision_cutoff)
+    hits <- which(ppv > x)
     
     if (length(hits) > 0) {
       max_thresh <- data[hits[1], "thresh"] # right after reaching precision cutoff
