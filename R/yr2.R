@@ -779,7 +779,16 @@ recall.at.prec <- function(yr2,x=0.9,monotonized=TRUE,balanced=FALSE) {
   })
 }
 
-calculate_thresh_range <- function(yr2, precision_cutoff=0.9, monotonized=TRUE, balanced=FALSE) { # jumptag
+#' Extract thresholds
+#'
+#' @param yr2 the yogiroc2 object
+#' @param x the precision cutoff (default 0.9)
+#' @param monotonized whether or not to use monotonized PRC
+#' @param balanced whether or not to use prior-balancing
+#'
+#' @return threshold ranges
+#' @export
+calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE) {
   stopifnot(inherits(yr2, "yr2"))
   
   # Initialize a list to store ranges
