@@ -15,9 +15,6 @@ recall.at.prec(yr2, x = 0.9, monotonized = TRUE, balanced = FALSE)
 
 \item{balanced}{whether or not to use prior-balancing}
 }
-\value{
-
-}
 \description{
 Calculate maximum recall at given minimum precision
 }

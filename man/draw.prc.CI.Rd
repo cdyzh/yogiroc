@@ -11,6 +11,9 @@ draw.prc.CI(
   monotonized = TRUE,
   balanced = FALSE,
   legend = "bottomleft",
+  sampling = c("accurate", "quickDirty"),
+  nsamples = 1000L,
+  monotonizedSampling = FALSE,
   ...
 )
 }

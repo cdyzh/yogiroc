@@ -276,7 +276,7 @@ yr2 <- function(truth, scores, names=colnames(scores), high=TRUE) {
 #' @return nothing, just prints a description
 #' @export
 #'
-#' @examples
+#' 
 print.yr2 <- function(yr2) {
   cat("YogiROC object\n")
   cat("Reference set size:",nrow(yr2[[1]]-2),"\n")
@@ -747,7 +747,6 @@ auroc <- function(yr2) {
 #' @param monotonized whether or not to use monotonized PRC
 #' @param balanced whether or not to use prior-balancing
 #'
-#' @return
 #' @export
 #'
 #' @examples
