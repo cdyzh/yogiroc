@@ -779,4 +779,33 @@ recall.at.prec <- function(yr2,x=0.9,monotonized=TRUE,balanced=FALSE) {
   })
 }
 
+calculate_thresh_range <- function(yr2, precision_cutoff=0.9, monotonized=TRUE, balanced=FALSE) { # jumptag
+  stopifnot(inherits(yr2, "yr2"))
   
+  # Initialize a list to store ranges
+  thresh_ranges <- vector("list", length(yr2))
+  names(thresh_ranges) <- names(yr2)
+  
+  for (i in seq_along(yr2)) {
+    data <- yr2[[i]]
+    ppv <- configure.prec(data, monotonized=monotonized, balanced=balanced)
+    
+    hits <- which(ppv > precision_cutoff)
+    
+    if (length(hits) > 0) {
+      max_thresh <- data[hits[1], "thresh"] # right after reaching precision cutoff
+      min_thresh <- if (hits[1] > 1) {
+        data[hits[1] - 1, "thresh"] # default - take threshold right before cutoff
+      } else {
+        -Inf
+      }
+      
+      # get rid of min.thresh, just say min
+      thresh_ranges[[i]] <- setNames(c(unname(min_thresh), unname(max_thresh)), c("min", "max"))
+      
+    } else {
+      thresh_ranges[[i]] <- c(min = NA_real_, max = NA_real_)
+    }
+  }
+  return(thresh_ranges)
+}
