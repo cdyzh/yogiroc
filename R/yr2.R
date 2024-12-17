@@ -809,11 +809,11 @@ calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE)
         -Inf
       }
       
-      # get rid of min.thresh, just say min
-      thresh_ranges[[i]] <- setNames(c(unname(min_thresh), unname(max_thresh)), c("min", "max"))
+      # Combine into a single string "min-max"
+      thresh_ranges[[i]] <- sprintf("%.3f-%.3f", min_thresh, max_thresh)
       
     } else {
-      thresh_ranges[[i]] <- c(min = NA_real_, max = NA_real_)
+      thresh_ranges[[i]] <- NA_character_
     }
   }
   return(thresh_ranges)
