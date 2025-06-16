@@ -4,7 +4,13 @@
 \alias{calculate_thresh_range}
 \title{Extract thresholds}
 \usage{
-calculate_thresh_range(yr2, x = 0.9, monotonized = TRUE, balanced = FALSE)
+calculate_thresh_range(
+  yr2,
+  x = 0.9,
+  monotonized = TRUE,
+  balanced = FALSE,
+  high = rep(TRUE, length(yr2))
+)
 }
 \arguments{
 \item{yr2}{the yogiroc2 object}
@@ -14,6 +20,8 @@ calculate_thresh_range(yr2, x = 0.9, monotonized = TRUE, balanced = FALSE)
 \item{monotonized}{whether or not to use monotonized PRC}
 
 \item{balanced}{whether or not to use prior-balancing}
+
+\item{high}{a boolean vector indicating for each predictor whether its scoring high-to-low (or low-to-high)}
 }
 \value{
 threshold ranges

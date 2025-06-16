@@ -784,11 +784,13 @@ recall.at.prec <- function(yr2,x=0.9,monotonized=TRUE,balanced=FALSE) {
 #' @param x the precision cutoff (default 0.9)
 #' @param monotonized whether or not to use monotonized PRC
 #' @param balanced whether or not to use prior-balancing
+#' @param high a boolean vector indicating for each predictor whether its scoring high-to-low (or low-to-high)
 #'
 #' @return threshold ranges
 #' @export
-calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE) {
+calculate_thresh_range <- function(yr2, x = 0.9, monotonized = TRUE, balanced = FALSE, high = rep(TRUE, length(yr2))) {
   stopifnot(inherits(yr2, "yr2"))
+  stopifnot(length(high) == length(yr2))  # ensure one 'high' per predictor
   
   # list to store ranges
   thresh_ranges <- vector("list", length(yr2))
@@ -796,22 +798,22 @@ calculate_thresh_range <- function(yr2, x=0.9, monotonized=TRUE, balanced=FALSE)
   
   for (i in seq_along(yr2)) {
     data <- yr2[[i]]
-    ppv <- configure.prec(data, monotonized=monotonized, balanced=balanced)
+    ppv <- configure.prec(data, monotonized = monotonized, balanced = balanced)
     
     # which thresholds meet cutoff
     hits <- which(ppv > x)
     
     if (length(hits) > 0) {
       max_thresh <- data[hits[1], "thresh"] # right after reaching precision cutoff
-      min_thresh <- if (hits[1] > 1) {
-        data[hits[1] - 1, "thresh"] # default - take threshold right before cutoff
-      } else {
-        -Inf
+      min_thresh <- if (hits[1] > 1) data[hits[1] - 1, "thresh"] else -Inf # default - take threshold right before cutoff
+      
+      if (!high[i]) { # scores and thresholds are already flipped in yr2, flip them back
+        max_thresh <- -1 * max_thresh
+        min_thresh <- if (is.finite(min_thresh)) -1 * min_thresh else Inf
       }
       
       # Combine into a single string "min-max"
       thresh_ranges[[i]] <- sprintf("%.3f-%.3f", min_thresh, max_thresh)
-      
     } else {
       thresh_ranges[[i]] <- NA_character_
     }
